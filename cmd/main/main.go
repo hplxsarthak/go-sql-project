@@ -12,7 +12,10 @@ func main() {
 	// Create a Server
 	r := gin.Default()
 
+	// Middleware for cors
 	r.Use(cors.Default())
+
+	// Call all the routes created in routes folder
 	routes.RegisterMedRoutes(r)
 
 	// Start the Server
