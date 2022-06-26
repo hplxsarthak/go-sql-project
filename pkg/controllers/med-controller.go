@@ -79,3 +79,13 @@ func UpdateMed (c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, medDetails)
 
 }
+
+func SearchMed (c *gin.Context) {
+	// Getting the search text from the url and send it to db for search
+	s := c.Query("s")
+
+
+	searchMeds := models.SearchMed(s)
+
+	c.IndentedJSON(http.StatusOK, searchMeds)
+}

@@ -1,8 +1,10 @@
 package models
 
 import (
-	"github.com/jinzhu/gorm"
+	"fmt"
+
 	"github.com/hplxsarthak/go-sql-project/pkg/config"
+	"github.com/jinzhu/gorm"
 )
 
 // This file is to define schema of the database
@@ -54,4 +56,18 @@ func DeleteMed (ID int64) Med {
 	var med Med
 	db.Where("ID=?", ID).Delete(med)
 	return med
+}
+
+// Function to search with medicine name or with company name
+func SearchMed(s string) []Med {
+	var meds []Med 
+
+	sql := "SELECT * FROM meds"
+
+	if s != "" {
+		sql = fmt.Sprintf("%s WHERE Med_Name Like '%%%s%%' OR Comp_Name Like '%%%s%%'",sql,s,s)
+	}
+
+	db.Raw(sql).Scan(&meds)
+	return (meds)
 }
