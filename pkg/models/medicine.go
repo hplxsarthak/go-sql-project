@@ -65,7 +65,7 @@ func SearchMed(s string) []Med {
 	sql := "SELECT * FROM meds"
 
 	if s != "" {
-		sql = fmt.Sprintf("%s WHERE Med_Name Like '%%%s%%' OR Comp_Name Like '%%%s%%'",sql,s,s)
+		sql = fmt.Sprintf("%s WHERE Med_Name Like '%%%s%%'",sql,s)
 	}
 
 	db.Raw(sql).Scan(&meds)
