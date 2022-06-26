@@ -54,7 +54,7 @@ func GetMedById (Id int64) (*Med, *gorm.DB){
 // Function to delete med by id
 func DeleteMed (ID int64) Med {
 	var med Med
-	db.Where("ID=?", ID).Delete(med)
+	db.Where("ID=?", ID).Unscoped().Delete(&med)
 	return med
 }
 
@@ -70,4 +70,21 @@ func SearchMed(s string) []Med {
 
 	db.Raw(sql).Scan(&meds)
 	return (meds)
+}
+
+// Function to do pagenation
+func PageMed(page int, perPage int) ([]Med, int64) {
+	var meds []Med
+
+	sql := "SELECT * FROM meds"
+
+	var total int64
+	db.Table("meds").Count(&total)
+
+	sql = fmt.Sprintf("%s LIMIT %d OFFSET %d", sql, perPage, (page - 1)*perPage)
+
+	db.Raw(sql).Scan(&meds)
+
+	return meds,total
+
 }

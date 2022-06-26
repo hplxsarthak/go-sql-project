@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"math"
 	"net/http"
 	"strconv"
 
@@ -83,9 +84,21 @@ func UpdateMed (c *gin.Context) {
 func SearchMed (c *gin.Context) {
 	// Getting the search text from the url and send it to db for search
 	s := c.Query("s")
-
-
 	searchMeds := models.SearchMed(s)
 
 	c.IndentedJSON(http.StatusOK, searchMeds)
+}
+
+func PageMed (c *gin.Context) {
+	page,_ := strconv.Atoi(c.DefaultQuery("page", "1"))
+	perPage := 2
+
+	pageMeds, total := models.PageMed(page,perPage)
+
+	c.IndentedJSON(http.StatusOK, gin.H{
+		"data": pageMeds,
+		"total": total,
+		"page": page,
+		"last_page": math.Ceil(float64(total / int64(perPage))),
+	})
 }
