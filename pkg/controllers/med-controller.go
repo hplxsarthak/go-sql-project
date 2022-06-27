@@ -81,19 +81,20 @@ func UpdateMed (c *gin.Context) {
 
 }
 
-func SearchMed (c *gin.Context) {
-	// Getting the search text from the url and send it to db for search
+// func SearchMed (c *gin.Context) {
+// 	// Getting the search text from the url and send it to db for search
+// 	s := c.Query("s")
+// 	searchMeds := models.SearchMed(s)
+
+// 	c.IndentedJSON(http.StatusOK, searchMeds)
+// }
+
+func SearchPageMed (c *gin.Context) {
 	s := c.Query("s")
-	searchMeds := models.SearchMed(s)
-
-	c.IndentedJSON(http.StatusOK, searchMeds)
-}
-
-func PageMed (c *gin.Context) {
 	page,_ := strconv.Atoi(c.DefaultQuery("page", "1"))
 	perPage,_ := strconv.Atoi(c.DefaultQuery("limit", "4"))
 
-	pageMeds, total := models.PageMed(page,perPage)
+	pageMeds, total := models.SearchPageMed(s,page,perPage)
 	total_page := float64(total) / float64(perPage)
 
 	c.IndentedJSON(http.StatusOK, gin.H{

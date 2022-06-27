@@ -59,24 +59,28 @@ func DeleteMed (ID int64) Med {
 }
 
 // Function to search with medicine name or with company name
-func SearchMed(s string) []Med {
-	var meds []Med 
+// func SearchMed(s string) []Med {
+// 	var meds []Med 
+
+// 	sql := "SELECT * FROM meds"
+
+// 	if s != "" {
+// 		sql = fmt.Sprintf("%s WHERE Med_Name Like '%%%s%%'",sql,s)
+// 	}
+
+// 	db.Raw(sql).Scan(&meds)
+// 	return (meds)
+// }
+
+// Function to do pagenation and search
+func SearchPageMed(s string, page int, perPage int) ([]Med, int64) {
+	var meds []Med
 
 	sql := "SELECT * FROM meds"
 
 	if s != "" {
 		sql = fmt.Sprintf("%s WHERE Med_Name Like '%%%s%%'",sql,s)
 	}
-
-	db.Raw(sql).Scan(&meds)
-	return (meds)
-}
-
-// Function to do pagenation
-func PageMed(page int, perPage int) ([]Med, int64) {
-	var meds []Med
-
-	sql := "SELECT * FROM meds"
 
 	var total int64
 	db.Table("meds").Count(&total)

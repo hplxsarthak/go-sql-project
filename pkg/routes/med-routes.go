@@ -13,6 +13,6 @@ var RegisterMedRoutes = func (router *gin.Engine) {
 	router.PUT("/med/:id", controllers.UpdateMed)
 	router.DELETE("/med/:id", controllers.DeleteMed)
 
-	router.GET("/med/search", controllers.SearchMed)
-	router.GET("/med/pages", controllers.PageMed)
+	// router.GET("/med/search", controllers.SearchMed)
+	router.GET("/med/search&pages", controllers.SearchPageMed)
 }
