@@ -94,11 +94,12 @@ func PageMed (c *gin.Context) {
 	perPage := 2
 
 	pageMeds, total := models.PageMed(page,perPage)
+	total_page := float64(total) / float64(perPage)
 
 	c.IndentedJSON(http.StatusOK, gin.H{
 		"data": pageMeds,
 		"total": total,
 		"page": page,
-		"last_page": math.Ceil(float64(total / int64(perPage))),
+		"total_page": math.Ceil(total_page),
 	})
 }
