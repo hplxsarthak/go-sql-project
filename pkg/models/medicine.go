@@ -82,8 +82,8 @@ func SearchPageMed(s string, page int, perPage int) ([]Med, int64) {
 		sql = fmt.Sprintf("%s WHERE Med_Name Like '%%%s%%'",sql,s)
 	}
 
-	var total int64
-	db.Table("meds").Count(&total)
+	
+	total := db.Raw(sql).Scan(&meds).RowsAffected
 
 	sql = fmt.Sprintf("%s LIMIT %d OFFSET %d", sql, perPage, (page - 1)*perPage)
 
