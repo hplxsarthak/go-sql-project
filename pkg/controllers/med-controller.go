@@ -91,7 +91,7 @@ func SearchMed (c *gin.Context) {
 
 func PageMed (c *gin.Context) {
 	page,_ := strconv.Atoi(c.DefaultQuery("page", "1"))
-	perPage := 2
+	perPage,_ := strconv.Atoi(c.DefaultQuery("limit", "4"))
 
 	pageMeds, total := models.PageMed(page,perPage)
 	total_page := float64(total) / float64(perPage)
