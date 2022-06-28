@@ -14,5 +14,5 @@ var RegisterUsersRoutes = func (router *gin.Engine) {
 	router.DELETE("/user/:id", controllers.DeleteUser)
 
 	// router.GET("/med/search", controllers.SearchMed)
-	router.GET("/user/search&pages", controllers.SearchPageMed)
+	router.GET("/user/search&pages", controllers.SearchPageUser)
 }
