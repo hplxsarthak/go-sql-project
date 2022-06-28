@@ -15,8 +15,11 @@ func main() {
 	// Middleware for cors
 	r.Use(cors.Default())
 
-	// Call all the routes created in routes folder
+	// Call all the routes created in routes folder for med
 	routes.RegisterMedRoutes(r)
+
+	// Call all the routes created in routes folder for user
+	routes.RegisterUsersRoutes(r)
 
 	// Start the Server
 	r.Run()
