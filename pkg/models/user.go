@@ -92,3 +92,12 @@ func SearchPageUser(s string, page int, perPage int) ([]User, int64) {
 	return Users,total
 
 }
+
+// Function to check whether a email given user is present or not
+func SearchUser (email string) (*User) {
+	var dbUser User
+
+	dba.Where("Email=?", email).Find(&dbUser)
+
+	return &dbUser
+}
