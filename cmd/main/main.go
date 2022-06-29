@@ -13,9 +13,9 @@ func main() {
 
 	// Middleware for cors
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"*"},
+		AllowOrigins:     []string{"http://localhost:3000"},
 		AllowMethods:     []string{"GET","POST","PUT", "PATCH","DELETE"},
-		AllowHeaders:     []string{"Origin"},
+		AllowHeaders:     []string{"Content-Type"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
 	}))
