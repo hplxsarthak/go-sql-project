@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"log"
 	"net/http"
 	"strconv"
 	"time"
@@ -16,7 +17,11 @@ const SecretKey = "secret"
 func Login(c *gin.Context){
 	user := &models.User{}
 
-	utils.ParseBody(c.Request,user)
+	err := utils.ParseBody(c.Request,user)
+
+	if err != nil {
+		log.Printf("%v",err)
+	}
 
 	dbUser := models.SearchUser(user.Email)
 

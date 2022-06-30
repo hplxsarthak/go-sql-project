@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"log"
 	"math"
 	"net/http"
 	"strconv"
@@ -31,7 +32,11 @@ func GetUserById (c *gin.Context) {
 func CreateUser (c *gin.Context) {
 	User := &models.User{}
 	// We have made a function in utils to parse the body into our desired schema format from json
-	utils.ParseBody(c.Request, User)
+	err := utils.ParseBody(c.Request, User)
+
+	if err != nil {
+		log.Printf("%v",err)
+	}
 	// User type is User so we can call the function of create User of models using User
 	b := User.CreateUser()
 	// res,_ := json.Marshal(b)
@@ -50,8 +55,11 @@ func DeleteUser (c *gin.Context) {
 
 func UpdateUser (c *gin.Context) {
 	var User = &models.User{}
-	utils.ParseBody(c.Request, User)
+	er := utils.ParseBody(c.Request, User)
 
+	if er != nil {
+		log.Printf("%v",er)
+	}
 
 	id := c.Param("id")
 	ID,err := strconv.ParseInt(id, 0, 0)

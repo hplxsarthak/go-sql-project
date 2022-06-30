@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"log"
 	"math"
 	"net/http"
 	"strconv"
@@ -31,7 +32,11 @@ func GetMedById (c *gin.Context) {
 func CreateMed (c *gin.Context) {
 	Medicine := &models.Med{}
 	// We have made a function in utils to parse the body into our desired schema format from json
-	utils.ParseBody(c.Request, Medicine)
+	err := utils.ParseBody(c.Request, Medicine)
+
+	if err != nil {
+		log.Printf("%v",err)
+	}
 	// Medicine type is med so we can call the function of create med of models using medicine
 	b := Medicine.CreateMed()
 	// res,_ := json.Marshal(b)
@@ -50,7 +55,11 @@ func DeleteMed (c *gin.Context) {
 
 func UpdateMed (c *gin.Context) {
 	var med = &models.Med{}
-	utils.ParseBody(c.Request, med)
+	er := utils.ParseBody(c.Request, med)
+
+	if er != nil {
+		log.Printf("%v",er)
+	}
 
 
 	id := c.Param("id")
