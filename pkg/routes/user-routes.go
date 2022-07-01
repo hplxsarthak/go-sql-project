@@ -8,13 +8,13 @@ import (
 
 // Function which contains all routes for our purpose
 var RegisterUsersRoutes = func (router *gin.Engine) {
-	router.GET("/user/", middleware.ValidateToken(),controllers.GetUser)
-	router.POST("/user/", middleware.ValidateToken(),controllers.CreateUser)
-	router.GET("/user/:id", middleware.ValidateToken(),controllers.GetUserById)
-	router.PUT("/user/:id", middleware.ValidateToken(),controllers.UpdateUser)
-	router.DELETE("/user/:id", middleware.ValidateToken(),controllers.DeleteUser)
+	router.GET("/user/", middleware.ValidateRole(),controllers.GetUser)
+	router.POST("/user/", middleware.ValidateRole(),controllers.CreateUser)
+	router.GET("/user/:id", middleware.ValidateRole(),controllers.GetUserById)
+	router.PUT("/user/:id", middleware.ValidateRole(),controllers.UpdateUser)
+	router.DELETE("/user/:id", middleware.ValidateRole(),controllers.DeleteUser)
 
 	// router.GET("/user/search", controllers.SearchUser)
-	router.GET("/user/search&pages", middleware.ValidateToken(),controllers.SearchPageUser)
+	router.GET("/user/search&pages", middleware.ValidateRole(),controllers.SearchPageUser)
 
 }

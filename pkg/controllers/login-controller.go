@@ -3,7 +3,6 @@ package controllers
 import (
 	"log"
 	"net/http"
-	"strconv"
 	"time"
 
 	"github.com/dgrijalva/jwt-go/v4"
@@ -40,7 +39,7 @@ func Login(c *gin.Context){
 	}
 
 	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
-		Issuer: strconv.Itoa(int(dbUser.ID)),
+		Issuer: dbUser.Role,
 		ExpiresAt: jwt.At(time.Now().Add(5 * time.Minute)) , // Expires at 5 minutes after login
 	})
 
@@ -56,7 +55,7 @@ func Login(c *gin.Context){
 		Name: "jwt",
 		Value: token,
 		Path: "/",
-		Expires: time.Now().Add(5 * time.Minute),
+		Expires: time.Now().Add(2 * time.Minute),
 		HttpOnly: true,
 	}
 	http.SetCookie(c.Writer, cookie)
